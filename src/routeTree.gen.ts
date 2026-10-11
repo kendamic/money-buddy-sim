@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ExpensesRouteImport } from './routes/expenses'
+import { Route as GoalsCommitmentsRouteImport } from './routes/goals-commitments'
+import { Route as PatternRadarRouteImport } from './routes/pattern-radar'
+import { Route as RippleEffectRouteImport } from './routes/ripple-effect'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as VibeCheckRouteImport } from './routes/vibe-check'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExpensesRoute = ExpensesRouteImport.update({
+  id: '/expenses',
+  path: '/expenses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GoalsCommitmentsRoute = GoalsCommitmentsRouteImport.update({
+  id: '/goals-commitments',
+  path: '/goals-commitments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatternRadarRoute = PatternRadarRouteImport.update({
+  id: '/pattern-radar',
+  path: '/pattern-radar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RippleEffectRoute = RippleEffectRouteImport.update({
+  id: '/ripple-effect',
+  path: '/ripple-effect',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VibeCheckRoute = VibeCheckRouteImport.update({
+  id: '/vibe-check',
+  path: '/vibe-check',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/expenses': typeof ExpensesRoute
+  '/goals-commitments': typeof GoalsCommitmentsRoute
+  '/pattern-radar': typeof PatternRadarRoute
+  '/ripple-effect': typeof RippleEffectRoute
+  '/settings': typeof SettingsRoute
+  '/vibe-check': typeof VibeCheckRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/expenses': typeof ExpensesRoute
+  '/goals-commitments': typeof GoalsCommitmentsRoute
+  '/pattern-radar': typeof PatternRadarRoute
+  '/ripple-effect': typeof RippleEffectRoute
+  '/settings': typeof SettingsRoute
+  '/vibe-check': typeof VibeCheckRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/expenses': typeof ExpensesRoute
+  '/goals-commitments': typeof GoalsCommitmentsRoute
+  '/pattern-radar': typeof PatternRadarRoute
+  '/ripple-effect': typeof RippleEffectRoute
+  '/settings': typeof SettingsRoute
+  '/vibe-check': typeof VibeCheckRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/expenses'
+    | '/goals-commitments'
+    | '/pattern-radar'
+    | '/ripple-effect'
+    | '/settings'
+    | '/vibe-check'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/expenses'
+    | '/goals-commitments'
+    | '/pattern-radar'
+    | '/ripple-effect'
+    | '/settings'
+    | '/vibe-check'
+  id:
+    | '__root__'
+    | '/'
+    | '/expenses'
+    | '/goals-commitments'
+    | '/pattern-radar'
+    | '/ripple-effect'
+    | '/settings'
+    | '/vibe-check'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExpensesRoute: typeof ExpensesRoute
+  GoalsCommitmentsRoute: typeof GoalsCommitmentsRoute
+  PatternRadarRoute: typeof PatternRadarRoute
+  RippleEffectRoute: typeof RippleEffectRoute
+  SettingsRoute: typeof SettingsRoute
+  VibeCheckRoute: typeof VibeCheckRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/expenses': {
+      id: '/expenses'
+      path: '/expenses'
+      fullPath: '/expenses'
+      preLoaderRoute: typeof ExpensesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/goals-commitments': {
+      id: '/goals-commitments'
+      path: '/goals-commitments'
+      fullPath: '/goals-commitments'
+      preLoaderRoute: typeof GoalsCommitmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pattern-radar': {
+      id: '/pattern-radar'
+      path: '/pattern-radar'
+      fullPath: '/pattern-radar'
+      preLoaderRoute: typeof PatternRadarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ripple-effect': {
+      id: '/ripple-effect'
+      path: '/ripple-effect'
+      fullPath: '/ripple-effect'
+      preLoaderRoute: typeof RippleEffectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vibe-check': {
+      id: '/vibe-check'
+      path: '/vibe-check'
+      fullPath: '/vibe-check'
+      preLoaderRoute: typeof VibeCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExpensesRoute: ExpensesRoute,
+  GoalsCommitmentsRoute: GoalsCommitmentsRoute,
+  PatternRadarRoute: PatternRadarRoute,
+  RippleEffectRoute: RippleEffectRoute,
+  SettingsRoute: SettingsRoute,
+  VibeCheckRoute: VibeCheckRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
