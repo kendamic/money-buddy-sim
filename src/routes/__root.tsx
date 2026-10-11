@@ -81,7 +81,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "PocketPilot — Your money. Your call." },
-      { name: "description", content: "Personal budgeting and spending awareness with PocketPilot." },
+      {
+        name: "description",
+        content: "Personal budgeting and spending awareness with PocketPilot.",
+      },
       { name: "author", content: "PocketPilot" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -89,7 +92,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -122,7 +128,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <PilotProvider><PilotShell><Outlet /></PilotShell></PilotProvider>
+      <PilotProvider>
+        <PilotShell>
+          <Outlet />
+        </PilotShell>
+      </PilotProvider>
     </QueryClientProvider>
   );
 }

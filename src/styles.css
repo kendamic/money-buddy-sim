@@ -3,8 +3,8 @@
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 @theme inline {
-  --font-sans: 'Inter', sans-serif;
-  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -35,63 +35,211 @@
   --color-tertiary-container: var(--tertiary-container);
   --color-inverse: var(--inverse);
   --color-inverse-foreground: var(--inverse-foreground);
-  --radius-lg: .5rem;
-  --radius-xl: .75rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
 }
 :root {
- --background: oklch(0.981 0.021 147);
- --foreground: oklch(0.224 0.024 154);
- --card: oklch(1 0 0);
- --primary: oklch(0.474 0.13 128);
- --secondary: oklch(0.476 0.054 145);
- --muted-foreground: oklch(0.394 0.033 124);
- --surface-low: oklch(0.963 0.021 147);
- --surface-high: oklch(0.93 0.022 147);
- --surface-container: oklch(0.945 0.022 147);
- --primary-container: oklch(0.897 0.186 127);
- --on-primary-container: oklch(0.493 0.14 128);
- --primary-fixed-dim: oklch(0.824 0.174 127);
- --secondary-container: oklch(0.915 0.06 140);
- --tertiary: oklch(0.485 0.115 58);
- --tertiary-container: oklch(0.91 0.053 59);
- --inverse: oklch(0.31 0.022 155);
- --inverse-foreground: oklch(0.955 0.021 148);
- --destructive: oklch(0.498 0.201 27);
- --border: oklch(0.825 0.031 122);
- --shadow-panel: 0 1px 3px oklch(0.224 0.024 154 / .035);
+  --background: oklch(0.981 0.021 147);
+  --foreground: oklch(0.224 0.024 154);
+  --card: oklch(1 0 0);
+  --primary: oklch(0.474 0.13 128);
+  --secondary: oklch(0.476 0.054 145);
+  --muted-foreground: oklch(0.394 0.033 124);
+  --surface-low: oklch(0.963 0.021 147);
+  --surface-high: oklch(0.93 0.022 147);
+  --surface-container: oklch(0.945 0.022 147);
+  --primary-container: oklch(0.897 0.186 127);
+  --on-primary-container: oklch(0.493 0.14 128);
+  --primary-fixed-dim: oklch(0.824 0.174 127);
+  --secondary-container: oklch(0.915 0.06 140);
+  --tertiary: oklch(0.485 0.115 58);
+  --tertiary-container: oklch(0.91 0.053 59);
+  --inverse: oklch(0.31 0.022 155);
+  --inverse-foreground: oklch(0.955 0.021 148);
+  --destructive: oklch(0.498 0.201 27);
+  --border: oklch(0.825 0.031 122);
+  --shadow-panel: 0 1px 3px oklch(0.224 0.024 154 / 0.035);
 }
 @layer base {
- * { border-color: var(--border); letter-spacing: 0; }
- body { background: var(--background); color: var(--foreground); font-family: var(--font-sans); font-size: 14px; }
- h1,h2,h3,.currency { font-family: var(--font-heading); }
- h1 { font-weight: 800; font-size: 48px; line-height: 1.18; }
- h2,h3 { font-weight: 600; font-size: 22px; line-height: 28px; }
- input, select { min-width: 0; }
- input:focus-visible,select:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  * {
+    border-color: var(--border);
+    letter-spacing: 0;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: 14px;
+  }
+  h1,
+  h2,
+  h3,
+  .currency {
+    font-family: var(--font-heading);
+  }
+  h1 {
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 1.18;
+  }
+  h2,
+  h3 {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 28px;
+  }
+  input,
+  select {
+    min-width: 0;
+  }
+  input:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
 }
 @layer components {
- .panel { background: var(--card); border-radius: 12px; padding: 24px; box-shadow: var(--shadow-panel); min-width: 0; }
- .panel-soft { background: var(--surface-low); }
- .panel-dark { background: var(--inverse); color: var(--inverse-foreground); }
- .eyebrow { font-size: 11px; line-height: 16px; font-weight: 700; text-transform: uppercase; color: var(--muted-foreground); }
- .soft-block { background: var(--surface-low); border-radius: 12px; padding: 16px; }
- .metric-value { font-family: var(--font-heading); font-size: 48px; line-height: 1.2; font-weight: 800; }
- .small-value { font-family: var(--font-heading); font-size: 22px; font-weight: 600; line-height: 30px; }
- .badge { display: inline-flex; align-items: center; gap: 5px; background: var(--secondary-container); color: var(--secondary); border-radius: 999px; padding: 3px 8px; font-size: 11px; font-weight: 600; white-space: nowrap; }
- .field { display: block; width: 100%; background: var(--surface-low); color: var(--foreground); padding: 12px 16px; border-radius: 8px; border: 1px solid transparent; }
- .field-label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--muted-foreground); }
- .nav-link { padding: 11px 16px; border-radius: 12px; color: var(--muted-foreground); transition: background .15s; }
- .nav-link:hover { background: var(--surface-high); }
- .nav-link[data-status=active] { background: var(--primary-container); color: var(--on-primary-container); font-weight: 600; }
- .progress { appearance: none; width: 100%; height: 8px; border: 0; overflow: hidden; border-radius: 999px; background: var(--surface-container); }
- .progress::-webkit-progress-bar { background: var(--surface-container); border-radius: 999px; }
- .progress::-webkit-progress-value { background: var(--primary-container); border-radius: 999px; }
- .progress::-moz-progress-bar { background: var(--primary-container); border-radius: 999px; }
- .category-travel::-webkit-progress-value { background: var(--secondary-container); }
- .category-fun::-webkit-progress-value { background: var(--tertiary-container); }
- .category-other::-webkit-progress-value { background: var(--secondary); }
- .chart-tip { background: var(--card); padding: 10px; border-radius: 8px; border: 1px solid var(--border); }
+  .panel {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-panel);
+    min-width: 0;
+  }
+  .panel-soft {
+    background: var(--surface-low);
+  }
+  .panel-dark {
+    background: var(--inverse);
+    color: var(--inverse-foreground);
+  }
+  .eyebrow {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+  .soft-block {
+    background: var(--surface-low);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .metric-value {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    line-height: 1.2;
+    font-weight: 800;
+  }
+  .small-value {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 30px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--secondary-container);
+    color: var(--secondary);
+    border-radius: 999px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .field {
+    display: block;
+    width: 100%;
+    background: var(--surface-low);
+    color: var(--foreground);
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+  }
+  .field-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted-foreground);
+  }
+  .nav-link {
+    padding: 11px 16px;
+    border-radius: 12px;
+    color: var(--muted-foreground);
+    transition: background 0.15s;
+  }
+  .nav-link:hover {
+    background: var(--surface-high);
+  }
+  .nav-link[data-status="active"] {
+    background: var(--primary-container);
+    color: var(--on-primary-container);
+    font-weight: 600;
+  }
+  .progress {
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border: 0;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--surface-container);
+  }
+  .progress::-webkit-progress-bar {
+    background: var(--surface-container);
+    border-radius: 999px;
+  }
+  .progress::-webkit-progress-value {
+    background: var(--primary-container);
+    border-radius: 999px;
+  }
+  .progress::-moz-progress-bar {
+    background: var(--primary-container);
+    border-radius: 999px;
+  }
+  .category-travel::-webkit-progress-value {
+    background: var(--secondary-container);
+  }
+  .category-fun::-webkit-progress-value {
+    background: var(--tertiary-container);
+  }
+  .category-other::-webkit-progress-value {
+    background: var(--secondary);
+  }
+  .chart-tip {
+    background: var(--card);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
 }
-@media(max-width: 1023px) { h1 { font-size: 32px; } .metric-value { font-size: 36px; } }
-@media(max-width: 639px) { .panel { padding: 16px; } h1 { font-size: 30px; } .small-value { font-size: 19px; } }
-@media(prefers-reduced-motion: reduce) { *,*::before,*::after { animation: none !important; transition: none !important; } }
+@media (max-width: 1023px) {
+  h1 {
+    font-size: 32px;
+  }
+  .metric-value {
+    font-size: 36px;
+  }
+}
+@media (max-width: 639px) {
+  .panel {
+    padding: 16px;
+  }
+  h1 {
+    font-size: 30px;
+  }
+  .small-value {
+    font-size: 19px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

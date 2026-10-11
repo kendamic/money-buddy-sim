@@ -1,11 +1,158 @@
-import { useRef, useState, type FormEvent } from 'react';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
-import { categories, localDate, transactionSchema, type Transaction } from './finance';
-import { usePilot } from './store';
-export function ExpenseDialog({open,onClose,expense}:{open:boolean;onClose:()=>void;expense?:Transaction|undefined}) {
- const {saveExpense}=usePilot(); const [error,setError]=useState(''); const submitting=useRef(false);
- function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();if(submitting.current)return;const d=new FormData(e.currentTarget);const result=transactionSchema.safeParse({id:expense?.id??crypto.randomUUID(),title:d.get('title'),amount:Number(d.get('amount')),category:d.get('category'),date:d.get('date')});if(!result.success){setError('Enter a description, a valid date, and an amount greater than zero.');return;}submitting.current=true;saveExpense(result.data);onClose();}
- return <Dialog open={open} onOpenChange={v=>{if(!v)onClose();}}><DialogContent><div><p className="eyebrow text-secondary">PocketPilot Tracker</p><DialogTitle className="mt-1 font-heading text-[22px]">{expense?'Edit Expense':'Record an Expense'}</DialogTitle><DialogDescription className="mt-1">{expense?'Update this entry in your ledger.':'A little clarity, one purchase at a time.'}</DialogDescription></div><form className="flex flex-col gap-4" onSubmit={submit}><label className="field-label">Expense Amount (₹)<input className="field currency text-2xl font-bold" name="amount" type="number" min="0.01" max="1000000000" step="0.01" placeholder="0" required defaultValue={expense?.amount} /></label><label className="field-label">Description / Merchant<input className="field" name="title" placeholder="e.g. Third Wave Coffee Roasters" required maxLength={120} defaultValue={expense?.title}/></label><label className="field-label">Category<select className="field" name="category" defaultValue={expense?.category??categories[0]}>{categories.map(c=><option key={c}>{c}</option>)}</select></label><label className="field-label">Date<input className="field" name="date" type="date" required defaultValue={expense?.date??localDate()}/></label>{error&&<p role="alert" className="text-destructive">{error}</p>}<div className="flex justify-end gap-2 pt-2"><Button type="button" variant="ghost" onClick={onClose}>Cancel</Button><Button type="submit">Save Record</Button></div></form></DialogContent></Dialog>;
+import { useRef, useState, type FormEvent } from "react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { categories, localDate, transactionSchema, type Transaction } from "./finance";
+import { usePilot } from "./store";
+export function ExpenseDialog({
+  open,
+  onClose,
+  expense,
+}: {
+  open: boolean;
+  onClose: () => void;
+  expense?: Transaction | undefined;
+}) {
+  const { saveExpense } = usePilot();
+  const [error, setError] = useState("");
+  const submitting = useRef(false);
+  function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (submitting.current) return;
+    const d = new FormData(e.currentTarget);
+    const result = transactionSchema.safeParse({
+      id: expense?.id ?? crypto.randomUUID(),
+      title: d.get("title"),
+      amount: Number(d.get("amount")),
+      category: d.get("category"),
+      date: d.get("date"),
+    });
+    if (!result.success) {
+      setError("Enter a description, a valid date, and an amount greater than zero.");
+      return;
+    }
+    submitting.current = true;
+    saveExpense(result.data);
+    onClose();
+  }
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={(v) => {
+        if (!v) onClose();
+      }}
+    >
+      <DialogContent>
+        <div>
+          <p className="eyebrow text-secondary">PocketPilot Tracker</p>
+          <DialogTitle className="mt-1 font-heading text-[22px]">
+            {expense ? "Edit Expense" : "Record an Expense"}
+          </DialogTitle>
+          <DialogDescription className="mt-1">
+            {expense
+              ? "Update this entry in your ledger."
+              : "A little clarity, one purchase at a time."}
+          </DialogDescription>
+        </div>
+        <form className="flex flex-col gap-4" onSubmit={submit}>
+          <label className="field-label">
+            Expense Amount (₹)
+            <input
+              className="field currency text-2xl font-bold"
+              name="amount"
+              type="number"
+              min="0.01"
+              max="1000000000"
+              step="0.01"
+              placeholder="0"
+              required
+              defaultValue={expense?.amount}
+            />
+          </label>
+          <label className="field-label">
+            Description / Merchant
+            <input
+              className="field"
+              name="title"
+              placeholder="e.g. Third Wave Coffee Roasters"
+              required
+              maxLength={120}
+              defaultValue={expense?.title}
+            />
+          </label>
+          <label className="field-label">
+            Category
+            <select
+              className="field"
+              name="category"
+              defaultValue={expense?.category ?? categories[0]}
+            >
+              {categories.map((c) => (
+                <option key={c}>{c}</option>
+              ))}
+            </select>
+          </label>
+          <label className="field-label">
+            Date
+            <input
+              className="field"
+              name="date"
+              type="date"
+              required
+              defaultValue={expense?.date ?? localDate()}
+            />
+          </label>
+          {error && (
+            <p role="alert" className="text-destructive">
+              {error}
+            </p>
+          )}
+          <div className="flex justify-end gap-2 pt-2">
+            <Button type="button" variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button type="submit">Save Record</Button>
+          </div>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
 }
-export function ConfirmDialog({title,detail,onConfirm,onClose}:{title:string;detail:string;onConfirm:()=>void;onClose:()=>void}) {return <Dialog open onOpenChange={v=>{if(!v)onClose();}}><DialogContent><DialogTitle>{title}</DialogTitle><DialogDescription>{detail}</DialogDescription><div className="flex justify-end gap-2"><Button variant="ghost" onClick={onClose}>Cancel</Button><Button variant="destructive" onClick={()=>{onConfirm();onClose();}}>Confirm</Button></div></DialogContent></Dialog>;}
+export function ConfirmDialog({
+  title,
+  detail,
+  onConfirm,
+  onClose,
+}: {
+  title: string;
+  detail: string;
+  onConfirm: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <Dialog
+      open
+      onOpenChange={(v) => {
+        if (!v) onClose();
+      }}
+    >
+      <DialogContent>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogDescription>{detail}</DialogDescription>
+        <div className="flex justify-end gap-2">
+          <Button variant="ghost" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={() => {
+              onConfirm();
+              onClose();
+            }}
+          >
+            Confirm
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
