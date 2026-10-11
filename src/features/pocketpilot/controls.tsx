@@ -2,7 +2,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { categories, localDate, transactionSchema, type Transaction } from "./finance";
-import { usePilot } from "./store";
+import { usePilot } from "./context";
 export function ExpenseDialog({
   open,
   onClose,

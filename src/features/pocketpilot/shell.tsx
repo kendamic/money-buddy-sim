@@ -2,7 +2,7 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { CalendarDays, Menu, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { usePilot } from "./store";
+import { usePilot } from "./context";
 import { rupees, type Transaction } from "./finance";
 import { ExpenseDialog } from "./controls";
 const logo =

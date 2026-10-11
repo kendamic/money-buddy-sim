@@ -31,7 +31,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { categories, calculate, insights, localDate, rupees, type Category } from "./finance";
-import { usePilot } from "./store";
+import { usePilot } from "./context";
 import { dateLabel, useExpenseAction } from "./shell";
 import { ConfirmDialog } from "./controls";
 const icons = {

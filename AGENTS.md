@@ -11,4 +11,5 @@
 
 - Use TanStack Start file-based routes with a shared PocketPilot shell; preserve the workspace framework and enable direct navigation to every view.
 - Keep local financial records in one React context, validate persisted data before loading, and derive all totals through shared pure functions; this prevents inconsistent or double-counted balances.
+- Define the PocketPilot context and consumer hook in a non-component module separate from its provider; this preserves context identity across React Fast Refresh updates.
 - Keep purchase simulations separate from recorded expenses and link commitment payments to one transaction; this preserves financial integrity.

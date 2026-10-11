@@ -1,17 +1,7 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { calculate, demoState, stateSchema, type PilotState, type Transaction } from "./finance";
+import { PilotContext } from "./context";
 const KEY = "pocketpilot-v1";
-type Store = {
-  state: PilotState;
-  metrics: ReturnType<typeof calculate>;
-  update: (fn: (s: PilotState) => PilotState) => void;
-  saveExpense: (expense: Transaction) => void;
-  deleteExpense: (id: string) => void;
-  reset: () => void;
-  storageError: string;
-  ready: boolean;
-};
-const Context = createContext<Store | null>(null);
 export function PilotProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<PilotState>(() => demoState());
   const [ready, setReady] = useState(false);
@@ -55,7 +45,7 @@ export function PilotProvider({ children }: { children: ReactNode }) {
     }));
   }
   return (
-    <Context.Provider
+    <PilotContext.Provider
       value={{
         state,
         metrics: calculate(state),
@@ -68,11 +58,6 @@ export function PilotProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-    </Context.Provider>
+    </PilotContext.Provider>
   );
-}
-export function usePilot() {
-  const ctx = useContext(Context);
-  if (!ctx) throw new Error("PocketPilot provider missing");
-  return ctx;
 }

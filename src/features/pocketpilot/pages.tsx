@@ -24,7 +24,7 @@ import {
   type Commitment,
   type Goal,
 } from "./finance";
-import { usePilot } from "./store";
+import { usePilot } from "./context";
 import { useExpenseAction } from "./shell";
 import {
   CategoryBurn,
