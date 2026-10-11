@@ -1,0 +1,13 @@
+import { describe, expect, it } from 'vitest';
+import { calculate, demoState, insights, stateSchema } from './finance';
+const today='2026-10-11';
+describe('PocketPilot financial integrity',()=>{
+ it('derives example totals and deducts commitments and reserved savings',()=>{const m=calculate(demoState(today),today);expect(m.spent).toBe(2580);expect(m.remaining).toBe(7420);expect(m.unpaid).toBe(918);expect(m.reserved).toBe(2000);expect(m.remainingDays).toBe(18);expect(m.safe).toBeCloseTo(4502/18);});
+ it('adds, edits, and deletes the same expense without duplication',()=>{const s=demoState(today);const t={id:'test',title:'Test',category:'Travel' as const,amount:100,date:today};s.transactions.push(t);expect(calculate(s,today).remaining).toBe(7320);t.amount=150;expect(calculate(s,today).spent).toBe(2730);s.transactions=s.transactions.filter(t=>t.id!=='test');expect(calculate(s,today).remaining).toBe(7420);});
+ it('does not double-count a paid commitment',()=>{const s=demoState(today);const c=s.commitments[0];if(!c)throw new Error('Missing commitment');c.expenseId='payment';s.transactions.push({id:'payment',title:c.name,amount:c.amount,category:'Everything Else',date:today});const m=calculate(s,today);expect(m.unpaid).toBe(119);expect(m.flexible).toBe(4502);});
+ it('keeps hypothetical values separate from actual values',()=>{const s=demoState(today);const snapshot=JSON.stringify(s);const m=calculate(s,today,1200);expect(m.flexible).toBe(3302);expect(m.remaining).toBe(7420);expect(JSON.stringify(s)).toBe(snapshot);});
+ it('handles an ended cycle and over-budget spending safely',()=>{const s=demoState(today);expect(calculate(s,'2026-12-01').safe).toBe(0);s.transactions.push({id:'huge',title:'Large purchase',amount:20000,category:'Travel',date:today});expect(calculate(s,today).safe).toBe(0);expect(calculate(s,today).remaining).toBe(-12580);});
+ it('excludes out-of-cycle transactions and commitments',()=>{const s=demoState(today);s.transactions.push({id:'old',title:'Old purchase',amount:1000,category:'Travel',date:'2025-01-01'});s.commitments.push({id:'later',name:'Later',amount:5000,dueDate:'2027-01-01'});expect(calculate(s,today).spent).toBe(2580);expect(calculate(s,today).unpaid).toBe(918);});
+ it('rejects malformed saved data and non-positive expenses',()=>{expect(stateSchema.safeParse({}).success).toBe(false);const s=demoState(today);const t=s.transactions[0];if(t)t.amount=-1;expect(stateSchema.safeParse(s).success).toBe(false);});
+ it('does not invent insights for an empty ledger',()=>{const s=demoState();s.transactions=[];expect(insights(s)).toEqual([]);});
+});
